@@ -3,8 +3,6 @@
  */
 package com.pigihi.controller;
 
-import java.nio.file.attribute.AclEntryPermission;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +16,7 @@ import com.pigihi.service.OrderServiceInterface;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * Controller class for handling orders
+ * Controller class for handling order API requests
  * 
  * @author Ashish Sam T George
  *
@@ -36,6 +34,16 @@ public class OrderController {
 	//TODO Initiate paytm transaction only if not CoD
 	//TODO Returns JSON response along with orderId
 	
+	/**
+	 * Create order
+	 * 
+	 * @param orderModel
+	 * @param request
+	 * @return JSON string
+	 * 
+	 * @author Ashish Sam T George
+	 * 
+	 */
 	// Currently supports only orders from customers
 	@PostMapping
 	public String createOrder(@RequestBody OrderModel orderModel,

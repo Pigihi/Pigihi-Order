@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Model class for Ordered Product
+ * 
  * @author Ashish Sam T George
  *
  */

@@ -14,6 +14,8 @@ import com.pigihi.model.OrderedProductModel;
 import com.pigihi.repository.OrderRepository;
 
 /**
+ * Implementation class for Order service interface
+ * 
  * @author Ashish Sam T George
  *
  */
@@ -22,6 +24,19 @@ public class CustomerOrderService implements OrderServiceInterface {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	/**
+	 * Create order
+	 * 
+	 * @param customerId
+	 * @param orderModel
+	 * @return JSON string
+	 * 
+	 * @see OrderedProductModel
+	 * @see OrderEntity
+	 * 
+	 * @author Ashish Sam T George
+	 * 
+	 */
 	@Override
 	public String[] createOrder(String customerId, OrderModel orderModel) {
 
@@ -65,6 +80,8 @@ public class CustomerOrderService implements OrderServiceInterface {
 		OrderEntity savedOrder = orderRepository.save(order);
 		String[] orderIdAndAmount = {savedOrder.getId(), totalAmt + ""};
 		 
+		//TODO Return as JSON string
+		
 		return orderIdAndAmount;
 		
 	}
