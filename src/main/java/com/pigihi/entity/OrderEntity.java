@@ -13,6 +13,8 @@ import com.pigihi.model.OrderedProductModel;
 import lombok.Data;
 
 /**
+ * Entity class for Order
+ * 
  * @author Ashish Sam T George
  *
  */
