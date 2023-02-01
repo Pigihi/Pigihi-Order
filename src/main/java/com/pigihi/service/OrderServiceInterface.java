@@ -3,6 +3,8 @@
  */
 package com.pigihi.service;
 
+import java.io.IOException;
+
 import com.pigihi.model.OrderModel;
 
 /**
@@ -13,6 +15,6 @@ import com.pigihi.model.OrderModel;
  */
 public interface OrderServiceInterface {
 
-	String[] createOrder(String customerId, OrderModel orderModel);
+	String[] createOrder(String customerId, OrderModel orderModel) throws IOException, InterruptedException;
 
 }
