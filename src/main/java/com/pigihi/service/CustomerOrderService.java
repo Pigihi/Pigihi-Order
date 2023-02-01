@@ -3,14 +3,23 @@
  */
 package com.pigihi.service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.pigihi.entity.OrderEntity;
 import com.pigihi.model.OrderModel;
 import com.pigihi.model.OrderedProductModel;
+import com.pigihi.model.ProductModel;
 import com.pigihi.repository.OrderRepository;
 
 /**
@@ -19,6 +28,7 @@ import com.pigihi.repository.OrderRepository;
  * @author Ashish Sam T George
  *
  */
+@Service
 public class CustomerOrderService implements OrderServiceInterface {
 	
 	@Autowired
@@ -35,11 +45,15 @@ public class CustomerOrderService implements OrderServiceInterface {
 	 * @see OrderEntity
 	 * 
 	 * @author Ashish Sam T George
+	 * @throws InterruptedException 
+	 * @throws IOException 
 	 * 
 	 */
 	@Override
-	public String[] createOrder(String customerId, OrderModel orderModel) {
+	public String[] createOrder(String customerId, OrderModel orderModel) throws IOException, InterruptedException {
 
+		//TODO Refactor code according to SOLID principles
+		
 		// Get list of products from the customer input
 		List<OrderedProductModel> orderProduct = orderModel.getOrderedProductList();
 		
@@ -54,8 +68,23 @@ public class CustomerOrderService implements OrderServiceInterface {
 			//TODO Do a get request to product microservice to get the product details
 			//TODO Accept the response as json and extract the required information
 //			ProductEntity prod = findProductById(item.getProdId());
-			String prodId = "";
-			Double prodPrice = 0.0;
+			
+			HttpClient client = HttpClient.newHttpClient();
+			URI productUri = URI.create("http://localhost:8083/product/id?prodId=" + item.getProdId());
+			HttpRequest productRequest = HttpRequest.newBuilder()
+										.uri(productUri)
+										.GET()
+										.build();
+			HttpResponse<String> response = client.send(productRequest, 
+											HttpResponse.BodyHandlers.ofString());
+			String jsonResponse = response.body();
+			
+			Gson gson = new Gson();
+			ProductModel productModel = gson.fromJson(jsonResponse, ProductModel.class);
+			System.out.println("Received json response from product microservice: " + productModel);
+			
+			String prodId = productModel.getId();
+			Double prodPrice = productModel.getPrice();
 			OrderedProductModel odl = new OrderedProductModel();		
 //			odl.setProdId(prod.getId());
 			odl.setProdId(prodId);
