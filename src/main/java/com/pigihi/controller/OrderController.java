@@ -77,7 +77,8 @@ public class OrderController {
 		//TODO Call payment microservice
 		
 		HttpClient client = HttpClient.newHttpClient();
-		URI paymentUri = URI.create("http://localhost:8082/makePayment");
+//		URI paymentUri = URI.create("http://localhost:8082/makePayment");
+		URI paymentUri = URI.create("http://PAYMENT-SERVICE/makePayment");
 		HttpRequest paymentRequest = HttpRequest.newBuilder()
 									.setHeader("Content-Type", "application/json")
 									.uri(paymentUri)

@@ -70,7 +70,8 @@ public class CustomerOrderService implements OrderServiceInterface {
 //			ProductEntity prod = findProductById(item.getProdId());
 			
 			HttpClient client = HttpClient.newHttpClient();
-			URI productUri = URI.create("http://localhost:8083/product/id?prodId=" + item.getProdId());
+//			URI productUri = URI.create("http://localhost:8083/product/id?prodId=" + item.getProdId());
+			URI productUri = URI.create("http://PRODUCT-SERVICE/product/id?prodId=" + item.getProdId());
 			HttpRequest productRequest = HttpRequest.newBuilder()
 										.uri(productUri)
 										.GET()
