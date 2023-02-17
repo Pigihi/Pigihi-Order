@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  order-db:
+    container_name: order-db
+    image: 'mongo'
+    restart: always
+    volumes:
+      - mongo-volume:/data/db
+    ports:
+      - 27019:27017
+
+  order-service:
+    container_name: order-service-v0.1
+    image: order-service-v0.1-image
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8092:8080
+    restart: always
+    depends_on:
+      - order-db
+
+volumes:
+  mongo-volume:
+
+networks:
+  default:
+    external:
+      name: pigihi-network
