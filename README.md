@@ -47,3 +47,10 @@ spring:
       host: name of mongoDB host (Eg: localhost)
       port: port in which mongoDB is being run (Eg: 27017)
 ```
+
+## Local Deployment
+In Linux,
+
+1. Open terminal and run `docker-compose up`
+2. The application can be accessed at localhost:8092 (port 8092 is set in docker-compose)
+3. MongoDB port is set to 27019
