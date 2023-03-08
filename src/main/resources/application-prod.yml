@@ -1,0 +1,18 @@
+# Production environment
+
+eureka_hostname: service-registry
+
+service_hostname: order-service
+
+mongodb_hostname: order-db
+mongodb_database_name: orderDB
+
+# Eureka properties
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${eureka_hostname}:8761/eureka
+  instance:
+    hostname: ${service_hostname}
